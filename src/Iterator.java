@@ -5,7 +5,7 @@
  * @author Francisco Parrinha (58360) f.parrinha@campus.fct.unl.pt
  * @author Martin Magdalinchev (58172) m.magdalinchev@campus.fct.unl.pt
  * @version 1.0
- * @param <T> Generic Entry
+ * @param <E> Generic Entry
  */
 public interface Iterator<E> {
 

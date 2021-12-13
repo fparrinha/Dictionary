@@ -1,6 +1,5 @@
 package exceptions;
-
-public class InvalidPositionException extends RuntimeException{
+public class EmptyListException extends RuntimeException{
     static final long serialVersionUID = 0L;
 }
 

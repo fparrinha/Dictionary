@@ -1,18 +1,15 @@
-public class IteratorClass<E> implements Iterator<E> {
+public class IteratorClass<K,V> implements Iterator<Entry<K,V>> {
 
 	// Protected variables
 	protected int i;
-	protected Iterator<E> it;
-	protected int maxSize;
-	@SuppressWarnings("rawtypes")
-	protected SepChainHashTable table;
+	protected Iterator<Entry<K,V>> it;
+	protected Dictionary<K,V> []table;
 
 	// Constructor
 
 	@SuppressWarnings({ "rawtypes" })
-	public IteratorClass(SepChainHashTable table) {
+	public IteratorClass(Dictionary<K,V> []table) {
 		rewind();
-		maxSize = table.maxSize;
 		this.table = table;
 	}
 
@@ -22,21 +19,29 @@ public class IteratorClass<E> implements Iterator<E> {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public E next() {
-		while (i < maxSize && !table.table[i].iterator().hasNext())
-			i++;
-		it = table.table[i].iterator();
+	public Entry<K,V> next() {
+
+		Entry<K,V> next = it != null ? it.next() : null;
+		
+		if(next != null)
+			findList();
+		
 		return it.next();
 	}
 
 	@Override
-	public E rewind() {
+	public Entry<K,V> rewind() {
 		i = 0;
 		it = null;
 
 		return next();
+	}
+	
+	private void findList() {
+		while (i < table.length && !table[i].iterator().hasNext())
+			i++;
+		it = table[i].iterator();
 	}
 
 }
