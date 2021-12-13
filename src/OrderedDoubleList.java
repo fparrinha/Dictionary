@@ -64,7 +64,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 		newNode.setPrevious(prevNode);
 		if (nextNode != null)
 			nextNode.setPrevious(newNode);
-
+		
 		return null;
 
 	}
@@ -88,7 +88,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 	public Entry<K, V> maxEntry() throws EmptyDictionaryException {
 		return tail.getElement();
 	}
-
+	
 	/**
 	 * Gets the first node with a key bigger than the search key
 	 */

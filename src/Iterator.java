@@ -33,5 +33,11 @@ public interface Iterator<E> extends Serializable
      * next will return the first element in the iteration.
      */
     void rewind( );
-
+	
+	/**
+	 * Goes to the first non free ordered list
+	 * 
+	 * @return
+	 */
+	void rewind();
 }

@@ -7,8 +7,8 @@ public class IteratorClass<K,V> implements Iterator<Entry<K,V>> {
 
 	// Constructor
 	public IteratorClass(Dictionary<K,V> []table) {
-		rewind();
 		this.table = table;
+		rewind();
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class IteratorClass<K,V> implements Iterator<Entry<K,V>> {
 	}
 	
 	private void findList() {
-		while (table[i].isEmpty())
+		while (i < table.length && table[i].isEmpty())
 			i++;
 		it = table[i].iterator();
 	}
