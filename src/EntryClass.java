@@ -19,7 +19,7 @@ public class EntryClass<K,V> implements Entry<K, V> {
 		return value;
 	}
 	
-	public void SetValue(V value) {
+	protected void setValue(V value) {
 		this.value = value;
 	}
 
