@@ -89,6 +89,6 @@ public class SepChainHashTable<K extends Comparable<K>, V> extends HashTable<K, 
 	@Override
 	public Iterator<Entry<K, V>> iterator() {
 		// TODO: Left as an exercise.
-		return null;
+		return new IteratorClass(table);
 	}
 }
