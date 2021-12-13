@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @param <V>
  */
 public class OrderedDoubleList<K extends Comparable<K>,V> implements OrderedDictionary<K,V>  {
+public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDictionary<K,V> {
 
 	/**
 	 * 
@@ -148,11 +149,30 @@ public class OrderedDoubleList<K extends Comparable<K>,V> implements OrderedDict
 
 	@Override
 	public V insert(K key, V value) {
+
+		// Seraches for a node with the same key. If found, changes its value and returns the old value
+		OrderedDLNode<Entry<K,V>> temp = this.getNode(key);
+		if(temp != null) {
+			V oldValue = temp.getElement().getValue();
+			((EntryClass<K, V>) temp.getElement()).setValue(value);
+			return oldValue;
+		}
+		
+		// If the specified key was not found, insert new node
+		if(head.getElement().getKey().compareTo(key) > 0)
+			insertFirst(key, value);
+		else if(tail.getElement().getKey().compareTo(key) < 0)
+			insertLast(key, value);
+		else
+			insertMiddle(key, value);
+
 		return null;
 	}
 
 	@Override
 	public V remove(K   key) {
+	public V remove(K key) {
+		if(key.com)
 		return null;
 	}
 
@@ -177,32 +197,81 @@ public class OrderedDoubleList<K extends Comparable<K>,V> implements OrderedDict
 	private OrderedDLNode<Entry<K,V>> getNode(K key){
 		int i = 0;
 		OrderedDLNode<Entry<K,V>> temp = head;
+		
 		while(i < currentSize) {
-			
+			if(temp.element.getKey().equals(key))
+				break;
+			temp = temp.getNext();
+			i ++;
 		}
 		
 		return null;
+		return temp;
 	}
 	
 	/**
 	 * Removes the first node
 	 */
-	private void RemoveFirstNode() {
+	private void removeFirstNode() {
 		
 	}
 	
 	/**
 	 * Removes the last node
 	 */
-	private void RemoveLastNode() {
+	private void removeLastNode() {
 		
 	}
 	
 	/**
-	 * Removes themiddle node
+	 * Removes the middle node
 	 */
-	private void RemoveMiddleNode() {
+	private void removeMiddleNode() {
 		
+	}
+	
+	/**
+	 * 
+	 */
+	private void insertFirst(K key, V value) {
+		Entry<K,V> entry = new EntryClass<K,V>(key,value);
+		OrderedDLNode<Entry<K,V>> node = new OrderedDLNode<Entry<K,V>>(entry); 
+		
+		node.setNext(head);
+		node.setPrevious(null);
+		head.setPrevious(node);
+		currentSize ++;
+	}
+	
+	private void insertMiddle(K key, V value) {
+		int i = 0;
+		Entry<K,V> entry = new EntryClass<K,V>(key,value);
+		OrderedDLNode<Entry<K,V>> temp = head;
+		OrderedDLNode<Entry<K,V>> node = new OrderedDLNode<Entry<K,V>>(entry);
+		
+		while (i < currentSize) {
+			if(temp.getElement().getKey().compareTo(key) > 0) {
+				OrderedDLNode<Entry<K,V>> aux = temp.getPrevious();
+				aux.next = node;
+				node.next = temp;
+				node.previous = aux;
+				temp.previous = node;
+				currentSize++;
+				break;
+			}
+			temp = temp.getNext();
+			i++;	
+		}
+	}
+	
+	private void insertLast(K key, V value) {
+		Entry<K,V> entry = new EntryClass<K,V>(key,value);
+		OrderedDLNode<Entry<K,V>> node = new OrderedDLNode<Entry<K,V>>(entry); 
+		
+		node.setNext(null);
+		node.setPrevious(tail);
+		tail.setNext(node);
+		currentSize ++;
 	}
 
 }
