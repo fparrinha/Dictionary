@@ -32,7 +32,7 @@ public class OrderedDoubleList<K, V> implements OrderedDictionary {
 	@Override
 	public Object find(Object key) {
 		for (int i = 0; i < this.size(); i++) {
-
+			
 		}
 		return null;
 	}
