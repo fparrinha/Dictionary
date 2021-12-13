@@ -1,6 +1,5 @@
-import exceptions.EmptyDictionaryException;
+import exceptions.*;
 
-import java.io.Serializable;
 
 /**
  * 
@@ -45,7 +44,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 	public V insert(K key, V value) {
 		// Next and previous nodes initialization
 		DoubleListNode<Entry<K, V>> nextNode = findNode(key);
-		DoubleListNode<Entry<K, V>> prevNode = findNode(key).getPrevious();
+		DoubleListNode<Entry<K, V>> prevNode = nextNode.getPrevious();
 
 		// Checks if there is an entry with the same key, if so, replace its value
 		if (prevNode != null && prevNode.getElement().getKey().compareTo(key) == 0) {
@@ -64,7 +63,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 		newNode.setPrevious(prevNode);
 		if (nextNode != null)
 			nextNode.setPrevious(newNode);
-		
+
 		return null;
 
 	}
@@ -88,7 +87,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 	public Entry<K, V> maxEntry() throws EmptyDictionaryException {
 		return tail.getElement();
 	}
-	
+
 	/**
 	 * Gets the first node with a key bigger than the search key
 	 */

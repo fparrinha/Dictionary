@@ -1,5 +1,9 @@
 public class IteratorClass<K,V> implements Iterator<Entry<K,V>> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// Protected variables
 	protected int i;
 	protected Iterator<Entry<K,V>> it;

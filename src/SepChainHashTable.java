@@ -55,6 +55,8 @@ public class SepChainHashTable<K extends Comparable<K>, V> extends HashTable<K, 
 
 	@Override
 	public V find(K key) {
+		
+		
 		return table[this.hash(key)].find(key);
 	}
 

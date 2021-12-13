@@ -9,6 +9,10 @@
  */
 public class EntryClass<K, V> implements Entry<K, V> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// Protected variables
 	protected K key;
 	protected V value;
