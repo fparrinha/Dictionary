@@ -6,8 +6,6 @@ public class IteratorClass<K,V> implements Iterator<Entry<K,V>> {
 	protected Dictionary<K,V> []table;
 
 	// Constructor
-
-	@SuppressWarnings({ "rawtypes" })
 	public IteratorClass(Dictionary<K,V> []table) {
 		rewind();
 		this.table = table;
@@ -24,22 +22,21 @@ public class IteratorClass<K,V> implements Iterator<Entry<K,V>> {
 
 		Entry<K,V> next = it != null ? it.next() : null;
 		
-		if(next != null)
+		if(next != null) {
+			// i++;   ASK PROFESSOR
 			findList();
-		
+		}
 		return it.next();
 	}
 
 	@Override
-	public Entry<K,V> rewind() {
+	public void rewind() {
 		i = 0;
-		it = null;
-
-		return next();
+		findList();
 	}
 	
 	private void findList() {
-		while (i < table.length && !table[i].iterator().hasNext())
+		while (table[i].isEmpty())
 			i++;
 		it = table[i].iterator();
 	}

@@ -1,4 +1,4 @@
-package dataStructures;
+import exceptions.*;
 
 /**
  * TwoWayIterator Abstract Data Type 

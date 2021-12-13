@@ -1,32 +1,37 @@
+import java.io.Serializable;
+
+import exceptions.*;
 
 /**
- * Iterator Specifications
- * 
- * @author Francisco Parrinha (58360) f.parrinha@campus.fct.unl.pt
- * @author Martin Magdalinchev (58172) m.magdalinchev@campus.fct.unl.pt
+ * Iterator Abstract Data Type 
+ * Includes description of general methods for one way iterator.
+ * @author AED  Team
  * @version 1.0
- * @param <E> Generic Entry
+ * @param <E> Generic Element
+ * 
  */
-public interface Iterator<E> {
+public interface Iterator<E> extends Serializable
+{
 
-	/**
-	 * Checks if there is a next ordered list that is not free
-	 * 
-	 * @return
-	 */
-	boolean hasNext();
+    /** 
+     * Returns true if next would return an element 
+     * rather than throwing an exception.
+     * @return true iff the iteration has more elements
+     */
+	boolean hasNext( );
 
-	/**
-	 * Returns the next non free ordered list
-	 * 
-	 * @return
-	 */
-	E next();
+    /**
+     * Returns the next element in the iteration.
+     * @return the next element in the iteration
+     * @throws NoSuchElementException - if call is made without verifying pre-condition
+     */
+    E next( ) throws NoSuchElementException;
 
-	/**
-	 * Goes to the first non free ordered list
-	 * 
-	 * @return
-	 */
-	E rewind();
+    /**
+     * Restarts the iteration.
+     * After rewind, if the iteration is not empty,
+     * next will return the first element in the iteration.
+     */
+    void rewind( );
+
 }

@@ -7,7 +7,7 @@ import exceptions.EmptyDictionaryException;
  * @version 1.0
  * 
  * @param <K> Generic type Key, must extend comparable
- * @param <V> Generic type Value 
+ * @param <V> Generic type Value
  */
 public interface OrderedDictionary<K extends Comparable<K>, V> 
     extends Dictionary<K,V>

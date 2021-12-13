@@ -1,6 +1,4 @@
-package dataStructures;
-
-import dataStructures.DoubleList.DoubleListNode;
+import exceptions.*;
 
 /**
  * Implementation of Two Way Iterator for DLList 
