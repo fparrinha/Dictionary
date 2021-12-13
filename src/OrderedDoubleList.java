@@ -48,7 +48,7 @@ public class OrderedDoubleList<K, V> implements OrderedDictionary {
 	}
 
 	@Override
-	public Iterator iterator() {
+	public Iterator<Entry<K,V>> iterator() {
 		return null;
 	}
 
