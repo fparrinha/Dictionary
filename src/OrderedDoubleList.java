@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @param <K>
  * @param <V>
  */
-public class OrderedDoubleList<K, V> implements OrderedDictionary<K,V> {
+public class OrderedDoubleList<K extends Comparable<K>,V> implements OrderedDictionary<K,V>  {
 
 	/**
 	 * 
@@ -142,17 +142,17 @@ public class OrderedDoubleList<K, V> implements OrderedDictionary<K,V> {
 
 	@Override
 	public V find(K key) {
-		OrderedDLNode<Entry<K,V>> temp = this.getNode(key);
+		OrderedDLNode<Entry<K,V>> temp = this.getNode(key);//1o no igual ou menor ou igual
 		return temp != null ? temp.getElement().getValue() : null;
 	}
 
 	@Override
-	public Entry<K, V> insert(Object key, Object value) {
+	public V insert(K key, V value) {
 		return null;
 	}
 
 	@Override
-	public Entry<K, V> remove(Object key) {
+	public V remove(K   key) {
 		return null;
 	}
 
@@ -181,7 +181,7 @@ public class OrderedDoubleList<K, V> implements OrderedDictionary<K,V> {
 			
 		}
 		
-		return 
+		return null;
 	}
 	
 	/**

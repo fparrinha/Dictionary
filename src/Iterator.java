@@ -28,5 +28,5 @@ public interface Iterator<E> {
 	 * 
 	 * @return
 	 */
-	E rewind();
+	void rewind();
 }
