@@ -75,7 +75,6 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 		if (node.getElement().getKey().compareTo(key) == 0) {
 			DoubleListNode<Entry<K, V>> prevNode = node.getPrevious();
 			DoubleListNode<Entry<K, V>> nextNode = node.getNext();
-			prevNode = prevNode.getPrevious();
 			prevNode.setNext(nextNode);
 			nextNode.setPrevious(prevNode);
 			currentSize--;

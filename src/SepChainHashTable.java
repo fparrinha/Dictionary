@@ -55,8 +55,7 @@ public class SepChainHashTable<K extends Comparable<K>, V> extends HashTable<K, 
 
 	@Override
 	public V find(K key) {
-		
-		
+
 		return table[this.hash(key)].find(key);
 	}
 
@@ -64,7 +63,7 @@ public class SepChainHashTable<K extends Comparable<K>, V> extends HashTable<K, 
 	public V insert(K key, V value) {
 		if (this.isFull())
 			this.rehash();
-		
+
 		V oldValue = this.find(key);
 		table[this.hash(key)].insert(key, value);
 		if (oldValue != null)
@@ -74,23 +73,32 @@ public class SepChainHashTable<K extends Comparable<K>, V> extends HashTable<K, 
 	}
 
 	private void rehash() {
-		// TODO Auto-generated method stub
+		int arraySize = HashTable.nextPrime((int) (1.1 * 2*this.maxSize));
+		@SuppressWarnings("unchecked")
+		Dictionary<K, V>[] aux = new Dictionary[arraySize];
+		for (int i = 0; i < arraySize; i++)
+			aux[i] = new OrderedDoubleList<K, V>();
+		Iterator<Entry<K, V>> it = this.iterator();
+		while (it.hasNext()) {
+			Entry<K, V> tmp = it.next();
+			aux[hash(tmp.getKey())].insert(tmp.getKey(), tmp.getValue());
+		}
+		table = aux;
 
 	}
 
 	@Override
 	public V remove(K key) {
 		V value = this.find(key);
-		if(value != null) 
+		if (value != null)
 			table[this.hash(key)].remove(key);
-		
-			
+
 		return value;
 	}
 
 	@Override
 	public Iterator<Entry<K, V>> iterator() {
 		// TODO: Left as an exercise.
-		return new IteratorClass<K,V>(table);
+		return new IteratorClass<K, V>(table);
 	}
 }
