@@ -1,6 +1,7 @@
 import exceptions.*;
 
 /**
+ * Ordered Double List Implementation
  * 
  * @author Francisco Parrinha (58360) f.parrinha@campus.fct.unl.pt
  * @author Martin Magdalinchev (58172) m.magdalinchev@campus.fct.unl.pt
@@ -55,9 +56,9 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 		if (this.isEmpty()) {
 			insertFirst(key, value);
 		} else {
-			if(key.compareTo(head.getElement().getKey()) < 0)
+			if (key.compareTo(head.getElement().getKey()) < 0)
 				insertFirst(key, value);
-			else if(key.compareTo(tail.getElement().getKey()) > 0)
+			else if (key.compareTo(tail.getElement().getKey()) > 0)
 				insertLast(key, value);
 			else
 				insertMiddle(key, value);
@@ -69,24 +70,15 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 	public V remove(K key) {
 		DoubleListNode<Entry<K, V>> node = findNode(key);
 
-		if (node == null)
+		if(node == null)
 			return null;
-
-		DoubleListNode<Entry<K, V>> prevNode = node.getPrevious();
-		DoubleListNode<Entry<K, V>> nextNode = node.getNext();
-		if (prevNode == null) {
-			head = nextNode;
-			nextNode.setPrevious(null);
-		} else {
-			prevNode.setNext(nextNode);
-		}
-		if (nextNode == null) {
-			tail = prevNode;
-			prevNode.setNext(null);
-		}
+		
+		if(node == head)
+			removeFirst();
+		else if(node == tail)
+			removeLast();
 		else
-			nextNode.setPrevious(prevNode);
-		currentSize--;
+			removeMiddle(node);
 		return node.getElement().getValue();
 	}
 
@@ -140,7 +132,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 		}
 		return current;
 	}
-	
+
 	/**
 	 * Adds a new node in the first position of the list
 	 * 
@@ -150,15 +142,15 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 	private void insertFirst(K key, V value) {
 		Entry<K, V> entry = new EntryClass<K, V>(key, value);
 		DoubleListNode<Entry<K, V>> newNode = new DoubleListNode<Entry<K, V>>(entry);
-		
-		if(this.isEmpty())
+
+		if (this.isEmpty())
 			tail = newNode;
 		else
 			head.setPrevious(newNode);
 		head = newNode;
 		currentSize++;
 	}
-	
+
 	/**
 	 * Adds a new node in the last position of the list
 	 * 
@@ -168,14 +160,15 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 	private void insertLast(K key, V value) {
 		Entry<K, V> entry = new EntryClass<K, V>(key, value);
 		DoubleListNode<Entry<K, V>> newNode = new DoubleListNode<Entry<K, V>>(entry);
-		
+
 		tail.setNext(newNode);
 		tail = newNode;
 		currentSize++;
 	}
-	
+
 	/**
 	 * Adds a new node in the middle of the list
+	 * 
 	 * @param key
 	 * @param value
 	 */
@@ -188,5 +181,53 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 		prevNode.setNext(newNode);
 		nextNode.setPrevious(newNode);
 		currentSize++;
+	}
+
+	/**
+	 * Removes the first node
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	private void removeFirst() {
+		head = head.getNext();
+		
+		if(head == null)
+			tail = null;
+		else
+			head.setPrevious(null);
+		currentSize--;
+	}
+
+	/**
+	 * Removes the last node
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	private void removeLast() {
+		tail = tail.getPrevious();
+		
+		if(tail == null)
+			head = null;
+		else
+			tail.setNext(null);
+		currentSize--;
+	}
+
+	/**
+	 * Removes one node from the middle
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	private void removeMiddle(DoubleListNode<Entry<K, V>> node) {
+		DoubleListNode<Entry<K, V>> prevNode = node.getPrevious();
+		DoubleListNode<Entry<K, V>> nextNode = node.getNext();
+		
+		prevNode.setNext(nextNode);
+		nextNode.setPrevious(prevNode);
+		
+		currentSize--;
 	}
 }
