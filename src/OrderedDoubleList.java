@@ -52,20 +52,15 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 		}
 
 		// Adds a new node with an entry with a different key
-		Entry<K, V> entry = new EntryClass<K, V>(key, value);
-		DoubleListNode<Entry<K, V>> newNode = new DoubleListNode<Entry<K, V>>(entry);
 		if (this.isEmpty()) {
-			head = tail = newNode;
+			insertFirst(key, value);
 		} else {
-			DoubleListNode<Entry<K, V>> nextNode = findPosition(key);
-			DoubleListNode<Entry<K, V>> prevNode = nextNode == null ? tail : nextNode.getPrevious();
-
-			if (prevNode != null)
-				prevNode.setNext(newNode);
-			newNode.setPrevious(prevNode);
-			newNode.setNext(nextNode);
-			if (nextNode != null)
-				nextNode.setPrevious(newNode);
+			if(key.compareTo(head.getElement().getKey()) < 0)
+				insertFirst(key, value);
+			else if(key.compareTo(tail.getElement().getKey()) > 0)
+				insertLast(key, value);
+			else
+				insertMiddle(key, value);
 		}
 		return null;
 	}
@@ -73,12 +68,6 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 	@Override
 	public V remove(K key) {
 		DoubleListNode<Entry<K, V>> node = findNode(key);
-
-		
-		if (node.getElement().getKey().compareTo(key) == 0) {
-			DoubleListNode<Entry<K, V>> prevNode = node.getPrevious();
-			DoubleListNode<Entry<K, V>> nextNode = node.getNext();
-
 
 		if (node == null)
 			return null;
@@ -150,5 +139,54 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 			current.getNext();
 		}
 		return current;
+	}
+	
+	/**
+	 * Adds a new node in the first position of the list
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	private void insertFirst(K key, V value) {
+		Entry<K, V> entry = new EntryClass<K, V>(key, value);
+		DoubleListNode<Entry<K, V>> newNode = new DoubleListNode<Entry<K, V>>(entry);
+		
+		if(this.isEmpty())
+			tail = newNode;
+		else
+			head.setPrevious(newNode);
+		head = newNode;
+		currentSize++;
+	}
+	
+	/**
+	 * Adds a new node in the last position of the list
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	private void insertLast(K key, V value) {
+		Entry<K, V> entry = new EntryClass<K, V>(key, value);
+		DoubleListNode<Entry<K, V>> newNode = new DoubleListNode<Entry<K, V>>(entry);
+		
+		tail.setNext(newNode);
+		tail = newNode;
+		currentSize++;
+	}
+	
+	/**
+	 * Adds a new node in the middle of the list
+	 * @param key
+	 * @param value
+	 */
+	private void insertMiddle(K key, V value) {
+		Entry<K, V> entry = new EntryClass<K, V>(key, value);
+		DoubleListNode<Entry<K, V>> nextNode = findPosition(key);
+		DoubleListNode<Entry<K, V>> prevNode = nextNode.getPrevious();
+		DoubleListNode<Entry<K, V>> newNode = new DoubleListNode<Entry<K, V>>(entry, prevNode, nextNode);
+
+		prevNode.setNext(newNode);
+		nextNode.setPrevious(newNode);
+		currentSize++;
 	}
 }
