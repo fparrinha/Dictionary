@@ -1,6 +1,5 @@
 import exceptions.*;
 
-
 /**
  * 
  * @author Francisco Parrinha (58360) f.parrinha@campus.fct.unl.pt
@@ -43,7 +42,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 	@Override
 	public V insert(K key, V value) {
 		// Next and previous nodes initialization
-		DoubleListNode<Entry<K, V>> prevNode = findNode(key);			// VAI FALHAR
+		DoubleListNode<Entry<K, V>> prevNode = findNode(key); // VAI FALHAR
 		DoubleListNode<Entry<K, V>> nextNode = prevNode.getNext();
 
 		// Checks if there is an entry with the same key, if so, replace its value
@@ -63,6 +62,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 		newNode.setPrevious(prevNode);
 		if (nextNode != null)
 			nextNode.setPrevious(newNode);
+		currentSize++;
 
 		return null;
 
@@ -71,6 +71,17 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 	@Override
 	public V remove(K key) {
 		DoubleListNode<Entry<K, V>> node = findNode(key);
+		
+		if (node.getElement().getKey().compareTo(key) == 0) {
+			DoubleListNode<Entry<K, V>> prevNode = node.getPrevious();
+			DoubleListNode<Entry<K, V>> nextNode = node.getNext();
+			prevNode = prevNode.getPrevious();
+			prevNode.setNext(nextNode);
+			nextNode.setPrevious(prevNode);
+			currentSize--;
+			return node.getElement().getValue();
+		}
+
 		return null;
 	}
 
