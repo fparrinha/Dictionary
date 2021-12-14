@@ -1,4 +1,4 @@
-public class IteratorClass<K,V> implements Iterator<Entry<K,V>> {
+public class IteratorClass<K, V> implements Iterator<Entry<K, V>> {
 
 	/**
 	 * 
@@ -6,31 +6,30 @@ public class IteratorClass<K,V> implements Iterator<Entry<K,V>> {
 	private static final long serialVersionUID = 1L;
 	// Protected variables
 	protected int i;
-	protected Iterator<Entry<K,V>> it;
-	protected Dictionary<K,V> []table;
+	protected Iterator<Entry<K, V>> it;
+	protected Dictionary<K, V>[] table;
 
 	// Constructor
-	public IteratorClass(Dictionary<K,V> []table) {
+	public IteratorClass(Dictionary<K, V>[] table) {
 		this.table = table;
 		rewind();
 	}
 
 	@Override
 	public boolean hasNext() {
-		return it.hasNext();
+		return (it.hasNext() || hasOther());
 
 	}
 
 	@Override
-	public Entry<K,V> next() {
+	public Entry<K, V> next() {
+		if (!it.hasNext()) {
+				i++;
+			findList();}
+			return it.next();
 
-		Entry<K,V> next = it != null ? it.next() : null;
 		
-		if(next != null) {
-			// i++;   ASK PROFESSOR
-			findList();
-		}
-		return it.next();
+
 	}
 
 	@Override
@@ -38,11 +37,18 @@ public class IteratorClass<K,V> implements Iterator<Entry<K,V>> {
 		i = 0;
 		findList();
 	}
-	
+
 	private void findList() {
-		while (i < table.length && table[i].isEmpty())
+		while (i < table.length-1 && table[i].isEmpty())
 			i++;
 		it = table[i].iterator();
 	}
 
+	private boolean hasOther() {
+		boolean bool = false;
+		for (int j = i+1; j < table.length && !bool; j++)
+			if (!table[j].isEmpty())
+				bool = true;
+		return bool;
+	}
 }

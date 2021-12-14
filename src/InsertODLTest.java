@@ -14,9 +14,9 @@ public class InsertODLTest {
 
 		od.insert(5, 5); // insercao a cabeca
 		od.insert(10, 10); // insercao a cauda
-			od.insert(-3, -3); // insercao a cabeca
-				od.insert(4, 4); // insercao do segundo
-/*	od.insert(9, 9); // insercao do penultimo
+		od.insert(-3, -3); // insercao a cabeca
+		od.insert(4, 4); // insercao do segundo
+		od.insert(9, 9); // insercao do penultimo
 		od.insert(7, 77); // insercao no meio
 		od.insert(7, 7); // substituição do valor
 		assertEquals(od.size(), 6);
@@ -40,7 +40,7 @@ public class InsertODLTest {
 		assertTrue(it.previous().getKey() == 4);
 		assertTrue(it.previous().getKey() == -3);
 		assertFalse(it.hasPrevious());
-	*/}
+	}
 
 	@Test
 	public void insertinsertRandomTest() throws EmptyDictionaryException {

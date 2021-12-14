@@ -37,7 +37,8 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 
 	@Override
 	public V find(K key) {
-		return this.findNode(key).getElement().getValue();
+		DoubleListNode<Entry<K,V>> node = this.findNode(key);
+		return node != null ? node.getElement().getValue() : null;
 	}
 
 	@Override
@@ -147,6 +148,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 			tail = newNode;
 		else
 			head.setPrevious(newNode);
+		newNode.setNext(head);
 		head = newNode;
 		currentSize++;
 	}
@@ -165,6 +167,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 			head = newNode;
 		else
 			tail.setNext(newNode);
+		newNode.setPrevious(tail);
 		tail = newNode;
 		currentSize++;
 	}

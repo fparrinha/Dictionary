@@ -66,14 +66,17 @@ public class SepChainHashTable<K extends Comparable<K>, V> extends HashTable<K, 
 
 		V oldValue = this.find(key);
 		table[this.hash(key)].insert(key, value);
+
 		if (oldValue != null)
 			return oldValue;
-		else
+		else {
+			currentSize++;
 			return null;
+		}
 	}
 
 	private void rehash() {
-		int arraySize = HashTable.nextPrime((int) (1.1 * 2*this.maxSize));
+		int arraySize = HashTable.nextPrime((int) (1.1 * 2 * this.maxSize));
 		@SuppressWarnings("unchecked")
 		Dictionary<K, V>[] aux = new Dictionary[arraySize];
 		for (int i = 0; i < arraySize; i++)
@@ -90,9 +93,10 @@ public class SepChainHashTable<K extends Comparable<K>, V> extends HashTable<K, 
 	@Override
 	public V remove(K key) {
 		V value = this.find(key);
-		if (value != null)
+		if (value != null) {
 			table[this.hash(key)].remove(key);
-
+			currentSize--;
+		}
 		return value;
 	}
 
