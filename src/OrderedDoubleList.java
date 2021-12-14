@@ -43,8 +43,8 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 	@Override
 	public V insert(K key, V value) {
 		// Next and previous nodes initialization
-		DoubleListNode<Entry<K, V>> nextNode = findNode(key);
-		DoubleListNode<Entry<K, V>> prevNode = nextNode.getPrevious();
+		DoubleListNode<Entry<K, V>> prevNode = findNode(key);			// VAI FALHAR
+		DoubleListNode<Entry<K, V>> nextNode = prevNode.getNext();
 
 		// Checks if there is an entry with the same key, if so, replace its value
 		if (prevNode != null && prevNode.getElement().getKey().compareTo(key) == 0) {
@@ -70,6 +70,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 
 	@Override
 	public V remove(K key) {
+		DoubleListNode<Entry<K, V>> node = findNode(key);
 		return null;
 	}
 
@@ -93,7 +94,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 	 */
 	private DoubleListNode<Entry<K, V>> findNode(K key) {
 		DoubleListNode<Entry<K, V>> current = head;
-		while (current != null && key.compareTo(current.getElement().getKey()) >= 0)
+		while (current != null && key.compareTo(current.getElement().getKey()) > 0)
 			current = current.getNext();
 		return current;
 	}
