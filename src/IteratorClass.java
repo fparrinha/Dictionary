@@ -25,7 +25,6 @@ public class IteratorClass<K, V> implements Iterator<Entry<K, V>> {
 		Entry<K, V> temp = it.next();
 		int pos;
 		if (!it.hasNext() && (pos = findNextList()) != -1) {
-			// i++;
 			it = table[pos].iterator();
 		}
 		return temp;
