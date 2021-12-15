@@ -17,18 +17,18 @@ public class IteratorClass<K, V> implements Iterator<Entry<K, V>> {
 
 	@Override
 	public boolean hasNext() {
-		return (it.hasNext() || hasOther());
-
+		// return (it.hasNext() || hasOther());
+		return it.hasNext();
 	}
 
 	@Override
 	public Entry<K, V> next() {
-		if (!it.hasNext()) {
-				i++;
-			findList();}
-			return it.next();
-
-		
+		Entry<K, V> temp = it.next();
+		if (!it.hasNext() && hasOther()) {
+			i++;
+			findList();
+		}
+		return temp;
 
 	}
 
@@ -39,14 +39,14 @@ public class IteratorClass<K, V> implements Iterator<Entry<K, V>> {
 	}
 
 	private void findList() {
-		while (i < table.length-1 && table[i].isEmpty())
+		while (i < table.length - 1 && table[i].isEmpty())
 			i++;
 		it = table[i].iterator();
 	}
 
 	private boolean hasOther() {
 		boolean bool = false;
-		for (int j = i+1; j < table.length && !bool; j++)
+		for (int j = i + 1; j < table.length && !bool; j++)
 			if (!table[j].isEmpty())
 				bool = true;
 		return bool;

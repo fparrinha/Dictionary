@@ -42,4 +42,8 @@ public class EntryClass<K, V> implements Entry<K, V> {
 		this.value = value;
 	}
 
+	protected void setKey(K key) {
+		this.key = key;
+	}
+
 }
