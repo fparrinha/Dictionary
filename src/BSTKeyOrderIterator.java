@@ -1,31 +1,45 @@
 import exceptions.NoSuchElementException;
 
-public class BSTKeyOrderIterator<K,V> implements Iterator<Entry<K, V>>{
+public class BSTKeyOrderIterator<K, V> implements Iterator<Entry<K, V>> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BSTKeyOrderIterator(BSTNode<K,V> root) {
-		
+	private BSTNode<K, V> root;
+
+	private DoubleList<BSTNode<K, V>> list;
+
+	private Iterator<BSTNode<K, V>> it;
+
+	public BSTKeyOrderIterator(BSTNode<K, V> root) {
+		this.root = root;
+		rewind();
 	}
 
 	@Override
 	public boolean hasNext() {
-		// TODO Auto-generated method stub
-		return false;
+		return it.hasNext();
 	}
 
 	@Override
 	public Entry<K, V> next() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		return it.next().getEntry();
 	}
 
 	@Override
 	public void rewind() {
-		// TODO Auto-generated method stub
-		
+		list = new DoubleList<BSTNode<K, V>>();
+		inorder(root);
+		it = new DoubleListIterator<BSTNode<K, V>>(list.head, list.tail);
+	}
+
+	protected void inorder(BSTNode<K, V> root) {
+		if (root != null) {
+			this.inorder(root.getLeft());
+			list.addLast(root);
+			this.inorder(root.getRight());
+		}
 	}
 }
