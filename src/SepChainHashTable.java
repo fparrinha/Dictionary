@@ -81,6 +81,7 @@ public class SepChainHashTable<K extends Comparable<K>, V> extends HashTable<K, 
 		Dictionary<K, V>[] aux = new Dictionary[arraySize];
 		for (int i = 0; i < arraySize; i++)
 			aux[i] = new OrderedDoubleList<K, V>();
+		
 		Iterator<Entry<K, V>> it = this.iterator();
 		while (it.hasNext()) {
 			Entry<K, V> tmp = it.next();
