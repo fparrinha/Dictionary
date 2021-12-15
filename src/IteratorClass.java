@@ -23,9 +23,10 @@ public class IteratorClass<K, V> implements Iterator<Entry<K, V>> {
 	@Override
 	public Entry<K, V> next() {
 		Entry<K, V> temp = it.next();
-		if (!it.hasNext() && hasOther()) {
+		int pos;
+		if (!it.hasNext() && (pos = findNextList()) != -1) {
 			i++;
-			findList();
+			it = table[pos].iterator();
 		}
 		return temp;
 
@@ -34,9 +35,11 @@ public class IteratorClass<K, V> implements Iterator<Entry<K, V>> {
 	@Override
 	public void rewind() {
 		i = 0;
-		findList();
+		int pos = !table[0].isEmpty() ? 0 : findNextList();
+		it = table[pos].iterator();
 	}
-
+	
+	/*
 	private void findList() {
 		while (i < table.length - 1 && table[i].isEmpty())
 			i++;
@@ -49,5 +52,17 @@ public class IteratorClass<K, V> implements Iterator<Entry<K, V>> {
 			if (!table[j].isEmpty())
 				bool = true;
 		return bool;
+	}*/
+	
+	private int findNextList() {
+		int pos = -1;
+		int j = i+1;
+		while(j < table.length && pos == -1) {
+			if(!table[j].isEmpty())
+				pos = j;
+			j++;
+		}
+		i = j-1;
+		return pos;
 	}
 }
