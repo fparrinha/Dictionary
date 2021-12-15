@@ -28,13 +28,13 @@ public class SepChainHashTable<K extends Comparable<K>, V> extends HashTable<K, 
 	 */
 	@SuppressWarnings("unchecked")
 	public SepChainHashTable(int capacity) {
+		
 		int arraySize = HashTable.nextPrime((int) (1.1 * capacity));
-		// Compiler gives a warning.
 		table = (Dictionary<K, V>[]) new Dictionary[arraySize];
+		
 		for (int i = 0; i < arraySize; i++)
-			// TODO: Original comentado para nao dar erro de compilacao.
 			table[i] = new OrderedDoubleList<K, V>();
-		// table[i] = null;
+		
 		maxSize = capacity;
 		currentSize = 0;
 	}
@@ -102,7 +102,6 @@ public class SepChainHashTable<K extends Comparable<K>, V> extends HashTable<K, 
 
 	@Override
 	public Iterator<Entry<K, V>> iterator() {
-		// TODO: Left as an exercise.
 		return new IteratorClass<K, V>(table);
 	}
 }
