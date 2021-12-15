@@ -25,7 +25,7 @@ public class IteratorClass<K, V> implements Iterator<Entry<K, V>> {
 		Entry<K, V> temp = it.next();
 		int pos;
 		if (!it.hasNext() && (pos = findNextList()) != -1) {
-			i++;
+			// i++;
 			it = table[pos].iterator();
 		}
 		return temp;
@@ -36,33 +36,23 @@ public class IteratorClass<K, V> implements Iterator<Entry<K, V>> {
 	public void rewind() {
 		i = 0;
 		int pos = !table[0].isEmpty() ? 0 : findNextList();
-		it = table[pos].iterator();
-	}
-	
-	/*
-	private void findList() {
-		while (i < table.length - 1 && table[i].isEmpty())
-			i++;
-		it = table[i].iterator();
+		it = table[pos != -1 ? pos : 0].iterator();
 	}
 
-	private boolean hasOther() {
-		boolean bool = false;
-		for (int j = i + 1; j < table.length && !bool; j++)
-			if (!table[j].isEmpty())
-				bool = true;
-		return bool;
-	}*/
-	
+	/**
+	 * Finds the next non free list in the table
+	 * 
+	 * @return
+	 */
 	private int findNextList() {
 		int pos = -1;
-		int j = i+1;
-		while(j < table.length && pos == -1) {
-			if(!table[j].isEmpty())
+		int j = i + 1;
+		while (j < table.length && pos == -1) {
+			if (!table[j].isEmpty())
 				pos = j;
 			j++;
 		}
-		i = j-1;
+		i = j - 1;
 		return pos;
 	}
 }
