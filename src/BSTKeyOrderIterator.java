@@ -1,5 +1,3 @@
-import exceptions.NoSuchElementException;
-
 public class BSTKeyOrderIterator<K, V> implements Iterator<Entry<K, V>> {
 
 	/**
@@ -24,7 +22,7 @@ public class BSTKeyOrderIterator<K, V> implements Iterator<Entry<K, V>> {
 	}
 
 	@Override
-	public Entry<K, V> next() throws NoSuchElementException {
+	public Entry<K, V> next()  {
 		return it.next().getEntry();
 	}
 

@@ -17,7 +17,6 @@ public class IteratorClass<K, V> implements Iterator<Entry<K, V>> {
 
 	@Override
 	public boolean hasNext() {
-		// return (it.hasNext() || hasOther());
 		return it.hasNext();
 	}
 
